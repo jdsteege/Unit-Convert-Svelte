@@ -1,0 +1,128 @@
+[
+  {
+    "id": "time",
+    "label": "Time",
+    "baseScaleId": "second",
+    "scales": [
+      {
+        "id": "second",
+        "pluralLabel": "Seconds",
+        "abbreviation": "s",
+        "conversionFactor": 1.0
+      },
+      {
+        "id": "minute",
+        "pluralLabel": "Minutes",
+        "abbreviation": "min",
+        "conversionFactor": 60.0
+      },
+      {
+        "id": "hour",
+        "pluralLabel": "Hours",
+        "abbreviation": "h",
+        "conversionFactor": 3600.0
+      },
+      {
+        "id": "day",
+        "pluralLabel": "Days",
+        "abbreviation": "d",
+        "conversionFactor": 86400.0
+      }
+    ]
+  },
+  {
+    "id": "length",
+    "label": "Length",
+    "baseScaleId": "meter",
+    "scales": [
+      {
+        "id": "millimeter",
+        "pluralLabel": "Millimeters",
+        "abbreviation": "mm",
+        "conversionFactor": 0.001
+      },
+      {
+        "id": "centimeter",
+        "pluralLabel": "Centimeters",
+        "abbreviation": "cm",
+        "conversionFactor": 0.01
+      },
+      {
+        "id": "meter",
+        "pluralLabel": "Meters",
+        "abbreviation": "m",
+        "conversionFactor": 1.0
+      },
+      {
+        "id": "kilometer",
+        "pluralLabel": "Kilometers",
+        "abbreviation": "km",
+        "conversionFactor": 1000.0
+      }
+    ]
+  },
+  {
+    "id": "mass",
+    "label": "Mass",
+    "baseScaleId": "kilogram",
+    "scales": [
+      {
+        "id": "milligram",
+        "pluralLabel": "Milligrams",
+        "abbreviation": "mg",
+        "conversionFactor": 0.000001
+      },
+      {
+        "id": "gram",
+        "pluralLabel": "Grams",
+        "abbreviation": "g",
+        "conversionFactor": 0.001
+      },
+      {
+        "id": "kilogram",
+        "pluralLabel": "Kilograms",
+        "abbreviation": "kg",
+        "conversionFactor": 1.0
+      }
+    ]
+  },
+  {
+    "id": "area",
+    "label": "Area",
+    "baseScaleId": "squaremeter",
+    "scales": [
+      {
+        "id": "squaremeter",
+        "pluralLabel": "Square meters",
+        "abbreviation": "m^2",
+        "conversionFactor": 1.0
+      }
+    ]
+  },
+  {
+    "id": "volume",
+    "label": "Volume",
+    "baseScaleId": "liter",
+    "scales": [
+      {
+        "id": "liter",
+        "pluralLabel": "Liters",
+        "abbreviation": "L",
+        "conversionFactor": 1.0
+      }
+    ]
+  },
+  {
+    "id": "velocity",
+    "label": "Speed",
+    "baseScaleId": "meterspersecond",
+    "scales": [
+      {
+        "id": "meterspersecond",
+        "pluralLabel": "Meters per second",
+        "abbreviation": "m/s",
+        "conversionFactor": 1.0
+      }
+    ]
+  }
+]

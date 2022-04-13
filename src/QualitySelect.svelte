@@ -1,16 +1,14 @@
 <script>
+  export let qualityList;
+  // export let currentQuality;
 </script>
 
 <h2>QualitySelect</h2>
 
 <ion-segment>
-  <ion-segment-button checked>
-    <ion-label>Call</ion-label>
-  </ion-segment-button>
-  <ion-segment-button>
-    <ion-label>Favorite</ion-label>
-  </ion-segment-button>
-  <ion-segment-button>
-    <ion-label>Map</ion-label>
-  </ion-segment-button>
+  {#each qualityList as { id, label }, i}
+    <ion-segment-button>
+      <ion-label>{label}</ion-label>
+    </ion-segment-button>
+  {/each}
 </ion-segment>
