@@ -1,3 +1,8 @@
+<script>
+  import ConverterBase from "./ConverterBase.svelte";
+</script>
+
+<!-- 
 <svelte:head>
   <script
     type="module"
@@ -9,11 +14,8 @@
   </script>
   <link
     rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
-</svelte:head>
+    href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"
+  />
+</svelte:head> -->
 
-<script>
-	import ConverterBase from './ConverterBase.svelte';
-</script>
-
-<ConverterBase/>
+<ConverterBase />

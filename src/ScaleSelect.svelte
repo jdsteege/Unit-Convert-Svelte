@@ -1,3 +1,1 @@
-<h3>
-	ScaleSelect
-</h3>
+<h3>ScaleSelect</h3>
