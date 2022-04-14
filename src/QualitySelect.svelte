@@ -1,19 +1,15 @@
 <script>
   export let qualityList;
-  export let currentQuality;
-
-  $: console.log("cq1 is " + currentQuality);
+  export let currentQualityId;
 </script>
 
-<h2>QualitySelect</h2>
-
 <ion-segment
-  value={currentQuality}
+  value={currentQualityId}
   on:ionChange={(event) => {
-    currentQuality = event.detail.value;
+    currentQualityId = event.target.value;
   }}
 >
-  {#each qualityList as { id, label }, i}
+  {#each qualityList as { id, label }}
     <ion-segment-button value={id}>
       <ion-label>{label}</ion-label>
     </ion-segment-button>
