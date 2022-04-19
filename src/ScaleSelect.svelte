@@ -1,16 +1,14 @@
 <script>
   export let scaleList;
-  export let currentScaleId;
-
-  console.log(scaleList);
+  export let value;
 </script>
 
 <ion-select
   placeholder="Scale"
-  value={currentScaleId}
+  {value}
   interface="popover"
   on:ionChange={(event) => {
-    currentScaleId = event.target.value;
+    value = event.target.value;
   }}
 >
   {#each scaleList as { id, pluralLabel }}
