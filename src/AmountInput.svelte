@@ -10,7 +10,7 @@
   inputmode="decimal"
   maxlength="12"
   {value}
-  on:ionChange={(event) => {
+  on:ionInput={(event) => {
     value = event.target.value;
     dispatch("amountChange", {});
   }}

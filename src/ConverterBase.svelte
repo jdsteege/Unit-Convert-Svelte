@@ -1,6 +1,8 @@
 <script>
+  //
+  import BigNumber from "bignumber.js";
+  //
   import AmountInput from "./AmountInput.svelte";
-
   import QualitySelect from "./QualitySelect.svelte";
   import ScaleSelect from "./ScaleSelect.svelte";
   //
@@ -13,12 +15,12 @@
   //
   let currentScaleId1;
   let scaleAbbreviation1;
-  let conversionFactor1 = 1;
-  let amount1 = 1;
+  let conversionFactor1 = new BigNumber(1);
+  let amount1 = `1`;
   //
   let currentScaleId2;
   let scaleAbbreviation2;
-  let conversionFactor2 = 1;
+  let conversionFactor2 = new BigNumber(1);
   let amount2;
 
   // When quality changes
@@ -42,7 +44,7 @@
       for (let s of scaleList) {
         if (s.id === currentScaleId1) {
           scaleAbbreviation1 = s.abbreviation;
-          conversionFactor1 = s.conversionFactor;
+          conversionFactor1 = new BigNumber(s.conversionFactor);
           break;
         }
       }
@@ -55,7 +57,7 @@
       for (let s of scaleList) {
         if (s.id === currentScaleId2) {
           scaleAbbreviation2 = s.abbreviation;
-          conversionFactor2 = s.conversionFactor;
+          conversionFactor2 = new BigNumber(s.conversionFactor);
           break;
         }
       }
@@ -64,11 +66,25 @@
   }
 
   function recalculate1() {
-    // amount1 = (amount2 * conversionFactor2) / conversionFactor1;
+    let temp2 = new BigNumber(amount2);
+    if (temp2.isNaN()) {
+      amount1 = ``;
+      return;
+    }
+
+    let temp1 = temp2.times(conversionFactor2).div(conversionFactor1);
+    amount1 = temp1.toString();
   }
 
   function recalculate2() {
-    amount2 = (amount1 * conversionFactor1) / conversionFactor2;
+    let temp1 = new BigNumber(amount1);
+    if (temp1.isNaN()) {
+      amount2 = ``;
+      return;
+    }
+
+    let temp2 = temp1.times(conversionFactor1).div(conversionFactor2);
+    amount2 = temp2.toString();
   }
 </script>
 
