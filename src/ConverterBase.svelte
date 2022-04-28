@@ -1,5 +1,6 @@
 <script>
   //
+  // Avoids issues with floating point arithmetic.
   import BigNumber from "bignumber.js";
   //
   import AmountInput from "./AmountInput.svelte";
@@ -98,30 +99,43 @@
       <ion-col size="1" />
     </ion-row>
     <ion-row>
-      <ion-col size="2" />
+      <ion-col size="4" />
       <ion-col>
         <ScaleSelect {scaleList} bind:value={currentScaleId1} />
       </ion-col>
+      <ion-col size="4" />
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" />
       <ion-col>
         <ion-item class="filled">
           <AmountInput bind:value={amount1} on:amountChange={recalculate2} />
           <ion-text>{scaleAbbreviation1}</ion-text>
         </ion-item>
       </ion-col>
-      <ion-col size="2" />
+      <ion-col size="4" />
     </ion-row>
     <ion-row>
-      <ion-col size="2" />
+      <ion-col>
+        <h4 style="text-align:center;">=</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" />
       <ion-col>
         <ScaleSelect {scaleList} bind:value={currentScaleId2} />
       </ion-col>
+      <ion-col size="4" />
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" />
       <ion-col>
         <ion-item class="filled">
           <AmountInput bind:value={amount2} on:amountChange={recalculate1} />
           <ion-text>{scaleAbbreviation2}</ion-text>
         </ion-item>
       </ion-col>
-      <ion-col size="2" />
+      <ion-col size="4" />
     </ion-row>
   </ion-grid>
 

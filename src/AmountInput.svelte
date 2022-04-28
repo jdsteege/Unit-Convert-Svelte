@@ -9,6 +9,7 @@
 <ion-input
   inputmode="decimal"
   maxlength="12"
+  enterkeyhint="done"
   {value}
   on:ionInput={(event) => {
     value = event.target.value;

@@ -3,7 +3,7 @@
   export let currentQualityId;
 </script>
 
-<ion-segment
+<!-- <ion-segment
   value={currentQualityId}
   on:ionChange={(event) => {
     currentQualityId = event.target.value;
@@ -14,4 +14,16 @@
       <ion-label>{label}</ion-label>
     </ion-segment-button>
   {/each}
-</ion-segment>
+</ion-segment> -->
+
+<ion-select
+  value={currentQualityId}
+  interface="popover"
+  on:ionChange={(event) => {
+    currentQualityId = event.target.value;
+  }}
+>
+  {#each qualityList as { id, label }}
+    <ion-select-option value={id}>{label}</ion-select-option>
+  {/each}
+</ion-select>
