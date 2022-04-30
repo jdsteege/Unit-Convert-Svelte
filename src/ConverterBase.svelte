@@ -1,5 +1,6 @@
 <script>
   //
+  import { onMount } from "svelte";
   // Avoids issues with floating point arithmetic.
   import BigNumber from "bignumber.js";
   //
@@ -11,18 +12,55 @@
 
   //
   let qualityList = unitData.map((q) => ({ id: q.id, label: q.label }));
-  let currentQualityId = "mass";
+  let currentQualityId = localStorage.getItem("currentQualityId") ?? `mass`;
   let scaleList;
   //
-  let currentScaleId1;
+  let currentScaleId1 = localStorage.getItem("currentScaleId1");
   let scaleAbbreviation1;
   let conversionFactor1 = new BigNumber(1);
   let amount1 = `1`;
   //
-  let currentScaleId2;
+  let currentScaleId2 = localStorage.getItem("currentScaleId2");
   let scaleAbbreviation2;
   let conversionFactor2 = new BigNumber(1);
   let amount2;
+
+  //
+  let didLoad = false;
+
+  //
+  onMount(() => {
+    console.log(`onMount a`);
+    loadStorage();
+    console.log(`onMount b`);
+  });
+
+  //
+  function saveStorage() {
+    if (didLoad) {
+      console.log(
+        `saveStorage, ` +
+          currentQualityId +
+          `, ` +
+          currentScaleId1 +
+          `, ` +
+          currentScaleId2
+      );
+      localStorage.setItem("currentQualityId", currentQualityId);
+      localStorage.setItem("currentScaleId1", currentScaleId1);
+      localStorage.setItem("currentScaleId2", currentScaleId2);
+    }
+  }
+
+  function loadStorage() {
+    // if (localStorage.getItem("currentQualityId")) {
+    //   currentQualityId = localStorage.getItem("currentQualityId");
+    //   currentScaleId1 = localStorage.getItem("currentScaleId1");
+    //   currentScaleId2 = localStorage.getItem("currentScaleId2");
+    // }
+
+    didLoad = true;
+  }
 
   // When quality changes
   $: {
@@ -30,12 +68,21 @@
       for (let q of unitData) {
         if (q.id === currentQualityId) {
           scaleList = q.scales;
-          currentScaleId1 = q.baseScaleId;
-          currentScaleId2 = q.baseScaleId;
+
+          // Search for current scales in scale list. If not found, set to base.
+          if (!scaleList.find((s) => s.id === currentScaleId1)) {
+            currentScaleId1 = q.baseScaleId;
+          }
+          if (!scaleList.find((s) => s.id === currentScaleId2)) {
+            currentScaleId2 = q.baseScaleId;
+          }
           break;
         }
       }
+
       recalculate2();
+      console.log(`quality change`);
+      saveStorage();
     }
   }
 
@@ -49,9 +96,13 @@
           break;
         }
       }
+
+      recalculate1();
+      console.log(`scale1 change`);
+      saveStorage();
     }
-    recalculate1();
   }
+
   // When scale 2 changes
   $: {
     if (currentScaleId2) {
@@ -62,8 +113,11 @@
           break;
         }
       }
+
+      recalculate2();
+      console.log(`scale2 change`);
+      saveStorage();
     }
-    recalculate2();
   }
 
   function recalculate1() {
@@ -148,11 +202,6 @@
     scaleAbbreviation2 is {scaleAbbreviation2}<br />
     amount2 is {amount2}
   </p>
-</ion-content>
 
-<style>
-  .filled {
-    background-color: #f00;
-    color: #0f0;
-  }
-</style>
+  <!-- {@debug currentQualityId, currentScaleId1, currentScaleId2} -->
+</ion-content>
