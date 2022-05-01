@@ -18,106 +18,83 @@
   let currentScaleId1 = localStorage.getItem("currentScaleId1");
   let scaleAbbreviation1;
   let conversionFactor1 = new BigNumber(1);
-  let amount1 = `1`;
+  let amount1;
   //
   let currentScaleId2 = localStorage.getItem("currentScaleId2");
   let scaleAbbreviation2;
   let conversionFactor2 = new BigNumber(1);
   let amount2;
+  //
+  let spacerSize = 4;
 
   //
-  let didLoad = false;
-
-  //
-  onMount(() => {
-    console.log(`onMount a`);
-    loadStorage();
-    console.log(`onMount b`);
-  });
+  qualityChanged();
+  scale1Changed();
+  scale2Changed();
 
   //
   function saveStorage() {
-    if (didLoad) {
-      console.log(
-        `saveStorage, ` +
-          currentQualityId +
-          `, ` +
-          currentScaleId1 +
-          `, ` +
-          currentScaleId2
-      );
-      localStorage.setItem("currentQualityId", currentQualityId);
-      localStorage.setItem("currentScaleId1", currentScaleId1);
-      localStorage.setItem("currentScaleId2", currentScaleId2);
-    }
-  }
-
-  function loadStorage() {
-    // if (localStorage.getItem("currentQualityId")) {
-    //   currentQualityId = localStorage.getItem("currentQualityId");
-    //   currentScaleId1 = localStorage.getItem("currentScaleId1");
-    //   currentScaleId2 = localStorage.getItem("currentScaleId2");
-    // }
-
-    didLoad = true;
+    localStorage.setItem("currentQualityId", currentQualityId);
+    localStorage.setItem("currentScaleId1", currentScaleId1);
+    localStorage.setItem("currentScaleId2", currentScaleId2);
   }
 
   // When quality changes
-  $: {
-    if (currentQualityId) {
-      for (let q of unitData) {
-        if (q.id === currentQualityId) {
-          scaleList = q.scales;
+  function qualityChanged() {
+    // if (currentQualityId) {
+    for (let q of unitData) {
+      if (q.id === currentQualityId) {
+        scaleList = q.scales;
 
-          // Search for current scales in scale list. If not found, set to base.
-          if (!scaleList.find((s) => s.id === currentScaleId1)) {
-            currentScaleId1 = q.baseScaleId;
-          }
-          if (!scaleList.find((s) => s.id === currentScaleId2)) {
-            currentScaleId2 = q.baseScaleId;
-          }
-          break;
+        // Search for current scales in scale list. If not found, set to base.
+        if (!scaleList.find((s) => s.id === currentScaleId1)) {
+          currentScaleId1 = q.baseScaleId;
+          scale1Changed();
         }
+        if (!scaleList.find((s) => s.id === currentScaleId2)) {
+          currentScaleId2 = q.baseScaleId;
+          scale2Changed();
+        }
+        break;
       }
-
-      recalculate2();
-      console.log(`quality change`);
-      saveStorage();
     }
+
+    amount1 = "";
+    amount2 = "";
+    saveStorage();
+    // }
   }
 
   // When scale 1 changes
-  $: {
-    if (currentScaleId1) {
-      for (let s of scaleList) {
-        if (s.id === currentScaleId1) {
-          scaleAbbreviation1 = s.abbreviation;
-          conversionFactor1 = new BigNumber(s.conversionFactor);
-          break;
-        }
+  function scale1Changed() {
+    // if (currentScaleId1) {
+    for (let s of scaleList) {
+      if (s.id === currentScaleId1) {
+        scaleAbbreviation1 = s.abbreviation;
+        conversionFactor1 = new BigNumber(s.conversionFactor);
+        break;
       }
-
-      recalculate1();
-      console.log(`scale1 change`);
-      saveStorage();
     }
+
+    recalculate1();
+    saveStorage();
+    // }
   }
 
   // When scale 2 changes
-  $: {
-    if (currentScaleId2) {
-      for (let s of scaleList) {
-        if (s.id === currentScaleId2) {
-          scaleAbbreviation2 = s.abbreviation;
-          conversionFactor2 = new BigNumber(s.conversionFactor);
-          break;
-        }
+  function scale2Changed() {
+    // if (currentScaleId2) {
+    for (let s of scaleList) {
+      if (s.id === currentScaleId2) {
+        scaleAbbreviation2 = s.abbreviation;
+        conversionFactor2 = new BigNumber(s.conversionFactor);
+        break;
       }
-
-      recalculate2();
-      console.log(`scale2 change`);
-      saveStorage();
     }
+
+    recalculate2();
+    saveStorage();
+    // }
   }
 
   function recalculate1() {
@@ -146,28 +123,36 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col size="1" />
+      <ion-col size={spacerSize} />
       <ion-col>
-        <QualitySelect {qualityList} bind:currentQualityId />
+        <QualitySelect
+          {qualityList}
+          bind:currentQualityId
+          on:qualityChange={qualityChanged}
+        />
       </ion-col>
-      <ion-col size="1" />
+      <ion-col size={spacerSize} />
     </ion-row>
     <ion-row>
-      <ion-col size="4" />
+      <ion-col size={spacerSize} />
       <ion-col>
-        <ScaleSelect {scaleList} bind:value={currentScaleId1} />
+        <ScaleSelect
+          {scaleList}
+          bind:value={currentScaleId1}
+          on:scaleChange={scale1Changed}
+        />
       </ion-col>
-      <ion-col size="4" />
+      <ion-col size={spacerSize} />
     </ion-row>
     <ion-row>
-      <ion-col size="4" />
+      <ion-col size={spacerSize} />
       <ion-col>
         <ion-item class="filled">
           <AmountInput bind:value={amount1} on:amountChange={recalculate2} />
           <ion-text>{scaleAbbreviation1}</ion-text>
         </ion-item>
       </ion-col>
-      <ion-col size="4" />
+      <ion-col size={spacerSize} />
     </ion-row>
     <ion-row>
       <ion-col>
@@ -175,21 +160,25 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size="4" />
+      <ion-col size={spacerSize} />
       <ion-col>
-        <ScaleSelect {scaleList} bind:value={currentScaleId2} />
+        <ScaleSelect
+          {scaleList}
+          bind:value={currentScaleId2}
+          on:scaleChange={scale2Changed}
+        />
       </ion-col>
-      <ion-col size="4" />
+      <ion-col size={spacerSize} />
     </ion-row>
     <ion-row>
-      <ion-col size="4" />
+      <ion-col size={spacerSize} />
       <ion-col>
         <ion-item class="filled">
           <AmountInput bind:value={amount2} on:amountChange={recalculate1} />
           <ion-text>{scaleAbbreviation2}</ion-text>
         </ion-item>
       </ion-col>
-      <ion-col size="4" />
+      <ion-col size={spacerSize} />
     </ion-row>
   </ion-grid>
 

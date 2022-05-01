@@ -1,6 +1,10 @@
 <script>
   export let qualityList;
   export let currentQualityId;
+
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <!-- <ion-segment
@@ -21,6 +25,7 @@
   interface="popover"
   on:ionChange={(event) => {
     currentQualityId = event.target.value;
+    dispatch("qualityChange", {});
   }}
 >
   {#each qualityList as { id, label }}

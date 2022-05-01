@@ -1,6 +1,10 @@
 <script>
   export let scaleList;
   export let value;
+
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <ion-select
@@ -9,6 +13,7 @@
   interface="popover"
   on:ionChange={(event) => {
     value = event.target.value;
+    dispatch("scaleChange", {});
   }}
 >
   {#each scaleList as { id, pluralLabel }}
