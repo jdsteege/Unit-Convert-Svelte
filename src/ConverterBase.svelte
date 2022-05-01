@@ -1,7 +1,6 @@
 <script>
   //
-  import { onMount } from "svelte";
-  // Avoids issues with floating point arithmetic.
+  // Fixes issues with floating point arithmetic.
   import BigNumber from "bignumber.js";
   //
   import AmountInput from "./AmountInput.svelte";
@@ -25,7 +24,7 @@
   let conversionFactor2 = new BigNumber(1);
   let amount2;
   //
-  let spacerSize = 4;
+  let spacerSize = 1;
 
   //
   qualityChanged();
@@ -134,9 +133,25 @@
       return fromAmount.toString();
     }
 
-    // TODO
+    // Convert from first scale to celsius
+    let celsius = new BigNumber(fromAmount);
+    if (fromScaleId === `fahrenheit`) {
+      celsius = fromAmount.minus(32).times(5).div(9);
+    }
+    if (fromScaleId === `kelvin`) {
+      celsius = fromAmount.minus(273.15);
+    }
 
-    return fromAmount.toString();
+    // Then convert from celsius to second scale
+    let toAmount = new BigNumber(celsius);
+    if (toScaleId === `fahrenheit`) {
+      toAmount = celsius.times(1.8).plus(32);
+    }
+    if (toScaleId === `kelvin`) {
+      toAmount = celsius.plus(273.15);
+    }
+
+    return toAmount.toString().substring(0, 7);
   }
 </script>
 
@@ -152,6 +167,9 @@
         />
       </ion-col>
       <ion-col size={spacerSize} />
+    </ion-row>
+    <ion-row>
+      <ion-col />
     </ion-row>
     <ion-row>
       <ion-col size={spacerSize} />

@@ -258,9 +258,27 @@
   {
     "id": "velocity",
     "label": "Speed",
-    "primaryScaleId": "meterspersecond",
-    "secondaryScaleId": "meterspersecond",
+    "primaryScaleId": "milesperhour",
+    "secondaryScaleId": "kilometersperhour",
     "scales": [
+      {
+        "id": "kilometersperhour",
+        "pluralLabel": "Kilometers per hour",
+        "abbreviation": "km/s",
+        "conversionFactor": 0.277778
+      },
+      {
+        "id": "feetpersecond",
+        "pluralLabel": "Feet per second",
+        "abbreviation": "ft/s",
+        "conversionFactor": 0.3048
+      },
+      {
+        "id": "milesperhour",
+        "pluralLabel": "Miles per hour",
+        "abbreviation": "mph",
+        "conversionFactor": 0.44704
+      },
       {
         "id": "meterspersecond",
         "pluralLabel": "Meters per second",
