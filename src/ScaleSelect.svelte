@@ -16,7 +16,9 @@
     dispatch("scaleChange", {});
   }}
 >
-  {#each scaleList as { id, pluralLabel }}
-    <ion-select-option value={id}>{pluralLabel}</ion-select-option>
+  {#each scaleList as { id, pluralLabel, abbreviation }}
+    <ion-select-option value={id}
+      >{pluralLabel + ` (` + abbreviation + `)`}</ion-select-option
+    >
   {/each}
 </ion-select>

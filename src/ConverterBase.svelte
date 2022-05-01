@@ -12,7 +12,7 @@
 
   //
   let qualityList = unitData.map((q) => ({ id: q.id, label: q.label }));
-  let currentQualityId = localStorage.getItem("currentQualityId") ?? `mass`;
+  let currentQualityId = localStorage.getItem("currentQualityId") ?? `volume`;
   let scaleList;
   //
   let currentScaleId1 = localStorage.getItem("currentScaleId1");
@@ -48,11 +48,11 @@
 
         // Search for current scales in scale list. If not found, set to base.
         if (!scaleList.find((s) => s.id === currentScaleId1)) {
-          currentScaleId1 = q.baseScaleId;
+          currentScaleId1 = q.primaryScaleId;
           scale1Changed();
         }
         if (!scaleList.find((s) => s.id === currentScaleId2)) {
-          currentScaleId2 = q.baseScaleId;
+          currentScaleId2 = q.secondaryScaleId;
           scale2Changed();
         }
         break;
@@ -104,8 +104,13 @@
       return;
     }
 
+    if (currentQualityId === `temperature`) {
+      amount1 = calculateTemperature(currentScaleId2, currentScaleId1, temp2);
+      return;
+    }
+
     let temp1 = temp2.times(conversionFactor2).div(conversionFactor1);
-    amount1 = temp1.toString();
+    amount1 = temp1.toString().substring(0, 12);
   }
 
   function recalculate2() {
@@ -115,8 +120,23 @@
       return;
     }
 
+    if (currentQualityId === `temperature`) {
+      amount2 = calculateTemperature(currentScaleId1, currentScaleId2, temp1);
+      return;
+    }
+
     let temp2 = temp1.times(conversionFactor1).div(conversionFactor2);
-    amount2 = temp2.toString();
+    amount2 = temp2.toString().substring(0, 12);
+  }
+
+  function calculateTemperature(fromScaleId, toScaleId, fromAmount) {
+    if (fromScaleId === toScaleId) {
+      return fromAmount.toString();
+    }
+
+    // TODO
+
+    return fromAmount.toString();
   }
 </script>
 
@@ -182,7 +202,7 @@
     </ion-row>
   </ion-grid>
 
-  <p>
+  <!-- <p>
     currentQualityId is {currentQualityId}<br />
     currentScaleId1 is {currentScaleId1}<br />
     scaleAbbreviation1 is {scaleAbbreviation1}<br />
@@ -190,7 +210,7 @@
     currentScaleId2 is {currentScaleId2}<br />
     scaleAbbreviation2 is {scaleAbbreviation2}<br />
     amount2 is {amount2}
-  </p>
+  </p> -->
 
   <!-- {@debug currentQualityId, currentScaleId1, currentScaleId2} -->
 </ion-content>
