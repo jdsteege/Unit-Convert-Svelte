@@ -8,6 +8,7 @@
 </script>
 
 <ion-select
+  style="color:#3171e0"
   placeholder="Scale"
   {value}
   interface="popover"

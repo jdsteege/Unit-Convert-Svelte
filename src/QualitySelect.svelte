@@ -7,20 +7,8 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<!-- <ion-segment
-  value={currentQualityId}
-  on:ionChange={(event) => {
-    currentQualityId = event.target.value;
-  }}
->
-  {#each qualityList as { id, label }}
-    <ion-segment-button value={id}>
-      <ion-label>{label}</ion-label>
-    </ion-segment-button>
-  {/each}
-</ion-segment> -->
-
 <ion-select
+  style="color:#5260ff"
   value={currentQualityId}
   interface="popover"
   on:ionChange={(event) => {
