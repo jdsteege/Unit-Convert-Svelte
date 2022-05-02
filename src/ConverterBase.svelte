@@ -24,7 +24,10 @@
   let conversionFactor2 = new BigNumber(1);
   let amount2;
   //
-  let spacerSize = 1;
+  let spacerSizeXs = 1;
+  let spacerSizeSm = 2;
+  let spacerSizeMd = 3;
+  let spacerSizeLg = 4;
 
   //
   qualityChanged();
@@ -156,9 +159,14 @@
 </script>
 
 <ion-content>
-  <ion-grid fixed>
+  <ion-grid>
     <ion-row>
-      <ion-col size={spacerSize} />
+      <ion-col
+        size={spacerSizeXs}
+        size-sm={spacerSizeSm}
+        size-md={spacerSizeMd}
+        size-lg={spacerSizeLg}
+      />
       <ion-col>
         <QualitySelect
           {qualityList}
@@ -166,13 +174,23 @@
           on:qualityChange={qualityChanged}
         />
       </ion-col>
-      <ion-col size={spacerSize} />
+      <ion-col
+        size={spacerSizeXs}
+        size-sm={spacerSizeSm}
+        size-md={spacerSizeMd}
+        size-lg={spacerSizeLg}
+      />
     </ion-row>
     <ion-row>
       <ion-col />
     </ion-row>
     <ion-row>
-      <ion-col size={spacerSize} />
+      <ion-col
+        size={spacerSizeXs}
+        size-sm={spacerSizeSm}
+        size-md={spacerSizeMd}
+        size-lg={spacerSizeLg}
+      />
       <ion-col>
         <ScaleSelect
           {scaleList}
@@ -180,17 +198,32 @@
           on:scaleChange={scale1Changed}
         />
       </ion-col>
-      <ion-col size={spacerSize} />
+      <ion-col
+        size={spacerSizeXs}
+        size-sm={spacerSizeSm}
+        size-md={spacerSizeMd}
+        size-lg={spacerSizeLg}
+      />
     </ion-row>
     <ion-row>
-      <ion-col size={spacerSize} />
+      <ion-col
+        size={spacerSizeXs}
+        size-sm={spacerSizeSm}
+        size-md={spacerSizeMd}
+        size-lg={spacerSizeLg}
+      />
       <ion-col>
-        <ion-item class="filled">
+        <ion-item>
           <AmountInput bind:value={amount1} on:amountChange={recalculate2} />
           <ion-text>{scaleAbbreviation1}</ion-text>
         </ion-item>
       </ion-col>
-      <ion-col size={spacerSize} />
+      <ion-col
+        size={spacerSizeXs}
+        size-sm={spacerSizeSm}
+        size-md={spacerSizeMd}
+        size-lg={spacerSizeLg}
+      />
     </ion-row>
     <ion-row>
       <ion-col>
@@ -198,7 +231,12 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size={spacerSize} />
+      <ion-col
+        size={spacerSizeXs}
+        size-sm={spacerSizeSm}
+        size-md={spacerSizeMd}
+        size-lg={spacerSizeLg}
+      />
       <ion-col>
         <ScaleSelect
           {scaleList}
@@ -206,17 +244,32 @@
           on:scaleChange={scale2Changed}
         />
       </ion-col>
-      <ion-col size={spacerSize} />
+      <ion-col
+        size={spacerSizeXs}
+        size-sm={spacerSizeSm}
+        size-md={spacerSizeMd}
+        size-lg={spacerSizeLg}
+      />
     </ion-row>
     <ion-row>
-      <ion-col size={spacerSize} />
+      <ion-col
+        size={spacerSizeXs}
+        size-sm={spacerSizeSm}
+        size-md={spacerSizeMd}
+        size-lg={spacerSizeLg}
+      />
       <ion-col>
-        <ion-item class="filled">
+        <ion-item>
           <AmountInput bind:value={amount2} on:amountChange={recalculate1} />
           <ion-text>{scaleAbbreviation2}</ion-text>
         </ion-item>
       </ion-col>
-      <ion-col size={spacerSize} />
+      <ion-col
+        size={spacerSizeXs}
+        size-sm={spacerSizeSm}
+        size-md={spacerSizeMd}
+        size-lg={spacerSizeLg}
+      />
     </ion-row>
   </ion-grid>
 
