@@ -9,7 +9,7 @@
     <link rel="manifest" href="/manifest.json" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="stylesheet" href="/global.css" />
-    <!-- <link rel="stylesheet" href="/build/bundle.css" /> -->
+    <link rel="stylesheet" href="/build/bundle.css" />
 
     <script defer src="/build/bundle.js"></script>
 
@@ -26,7 +26,7 @@
       rel="stylesheet"
     />
 
-    <!-- You can remove this is you don't want to make your PWA installable -->
+    <!-- You can remove this if you don't want to make your PWA installable -->
     <script
       type="module"
       src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"
@@ -42,7 +42,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker.register("/service-worker.js").then((reg) => {
-            console.log("Service worker registered.", reg);
+            // console.log("Service worker registered.", reg);
           });
         });
       }

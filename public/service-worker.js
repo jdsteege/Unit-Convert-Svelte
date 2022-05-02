@@ -1,48 +1,66 @@
-"use strict";
-// Cache Name
-const CACHE_NAME = "static-cache-v1";
-// Cache Files
-const FILES_TO_CACHE = ["/offline.html"];
-// install
-self.addEventListener("install", (evt) => {
-    console.log("[ServiceWorker] Install");
+'use strict';
+
+// Update cache names any time any of the cached files change.
+const CACHE_NAME = 'unit-convert-cache-v01';
+
+// Add list of files to cache here.
+const FILES_TO_CACHE = [
+    '/', '/index.html', '/build/bundle.js', '/global.css', '/build/bundle.css', '/manifest.json', '/icon-144x144.png', '/favicon.png',
+];
+
+// const FILES_TO_CACHE = [
+//     '/', '/manifest.json', '/index.html', '/build/bundle.js', '/build/bundle.js.map', '/favicon.ico', '/favicon.png', '/global.css', '/build/bundle.css', '/icon-144x144.png',
+//     '/unit-data.json',
+// ];
+
+self.addEventListener('install', (evt) => {
+    console.log('[ServiceWorker] Install');
+
     evt.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
-            console.log("[ServiceWorker] Pre-caching offline page");
+            console.log('[ServiceWorker] Pre-caching offline page');
             return cache.addAll(FILES_TO_CACHE);
         })
     );
+
     self.skipWaiting();
 });
-// Active PWA Cache and clear out anything older
-self.addEventListener("activate", (evt) => {
-    console.log("[ServiceWorker] Activate");
+
+self.addEventListener('activate', (evt) => {
+    console.log('[ServiceWorker] Activate');
+    // Remove previous cached data from disk.
     evt.waitUntil(
         caches.keys().then((keyList) => {
-            return Promise.all(
-                keyList.map((key) => {
-                    if (key !== CACHE_NAME) {
-                        console.log("[ServiceWorker] Removing old cache", key);
-                        return caches.delete(key);
-                    }
-                })
-            );
+            return Promise.all(keyList.map((key) => {
+                if (key !== CACHE_NAME) {
+                    console.log('[ServiceWorker] Removing old cache', key);
+                    return caches.delete(key);
+                }
+            }));
         })
     );
+
     self.clients.claim();
 });
-// listen for fetch events in page navigation and return anything that has been cached
-self.addEventListener("fetch", (evt) => {
-    console.log("[ServiceWorker] Fetch", evt.request.url);
-    // when not a navigation event return
-    if (evt.request.mode !== "navigate") {
+
+self.addEventListener('fetch', function (event) {
+    // console.log(event);
+
+    if (event.request.url.includes("livereload")) {
         return;
     }
-    evt.respondWith(
-        fetch(evt.request).catch(() => {
-            return caches.open(CACHE_NAME).then((cache) => {
-                return cache.match("offline.html");
-            });
-        })
-    );
+
+    const response =
+        caches.match(event.request).then(function (resp) {
+            return resp || fetch(event.request);
+        }).catch(function (err) {
+            console.error('[ServiceWorker] Fetch error for url ' + event.request.url + ': ' + err);
+            return false;
+        });
+
+    // console.log(event.request.url);
+    // console.log(response);
+
+    event.respondWith(response);
+
 });

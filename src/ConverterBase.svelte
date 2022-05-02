@@ -7,7 +7,7 @@
   import QualitySelect from "./QualitySelect.svelte";
   import ScaleSelect from "./ScaleSelect.svelte";
   //
-  import unitData from "./unit-data.json";
+  import unitData from "../public/unit-data.json";
 
   //
   let qualityList = unitData.map((q) => ({ id: q.id, label: q.label }));
