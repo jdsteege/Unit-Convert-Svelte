@@ -50,6 +50,7 @@ self.addEventListener('fetch', function (event) {
         return;
     }
 
+    // TODO: Try to fetch from network first, then fallback on cached files.
     const response =
         caches.match(event.request).then(function (resp) {
             return resp || fetch(event.request);

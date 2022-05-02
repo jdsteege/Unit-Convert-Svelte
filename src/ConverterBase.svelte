@@ -156,7 +156,7 @@
 </script>
 
 <ion-content>
-  <ion-grid>
+  <ion-grid fixed>
     <ion-row>
       <ion-col size={spacerSize} />
       <ion-col>
